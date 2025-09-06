@@ -39,24 +39,35 @@ int main()
 
     test1 = insertEnd(test1, 2);
     test1 = insertEnd(test1, 4);
-    test1 = insertEnd(test1, 4);
     test1 = insertEnd(test1, 5);
     test1 = insertEnd(test1, 6);
     test1 = insertEnd(test1, 7);
     test1 = insertEnd(test1, 8);
+    test1 = insertEnd(test1, 9);
     test1 = insertEnd(test1, 35);
+    test1 = insertEnd(test1, 43);
+    test1 = insertEnd(test1, 55);
+    test1 = insertEnd(test1, 62);
+    test1 = insertEnd(test1, 72);
+    test1 = insertEnd(test1, 83);
+    /*test1 = insertEnd(test1, 99);
+    test1 = insertEnd(test1, 102);
+    test1 = insertEnd(test1, 134);
+    test1 = insertEnd(test1, 153);*/
 
     Node* head = test1;   // head points to the start
     Node* curr = head;    // curr is for traversal
     Node* Q3slow = head;
     Node* Q3fast = head;
+    Node* Q1slow = head;
+    Node* Q1fast = head;
 
 
 
 
 
     int clock = 0;
-    // Example traversal (print values)
+
     while (curr != nullptr) {
         std::cout << curr->value << " ";
         curr = curr->next;
@@ -64,142 +75,68 @@ int main()
     std::cout << std::endl;
     curr = head;
 
-    while (curr != nullptr) {
+    while (curr != nullptr && curr->next != nullptr ) {
 
-        curr = curr->next->next;
-        clock++;
-
-
-        if (clock % 4 == 1){
-          Q3fast = curr;
-
-        }
-        if (clock % 4 == 3){
-          Q3slow = curr;
-        }
-        //if (clock % 2 == 0) {
-         //   Q3fast = Q3fast->next;
-       // }
-    }
-    std::cout << "Q3slow " << Q3slow->value << std::endl;
-    std::cout << "Q3fast " <<Q3fast->value << std::endl;
-
-
-
-
-
-
-
-
-
-
-
-    std::cout << std::endl;
-
-    return 0;
-
-
-
-
-
-
-
-
-
-
-    return 0;
-}
-
-
-
-// Example program
-#include <iostream>
-#include <string>
-
-
-
-#include <iomanip>
-
-class Node {
-public:
-    int value;
-    Node* next = nullptr;
-};
-
-Node* insertEnd(Node* head, int key)
-{
-    Node* temp = new Node();
-    temp->value = key;
-    if(head == nullptr)
-        head = temp;
-    else
-    {
-        Node* curr = head;
-        while(curr->next != nullptr)
-            curr = curr->next;
-        curr->next = temp;
-    }
-    return head;
-}
-
-float interQuartile(Node* head)
-{
-    //code here
-    return 0.0;
-}
-int main()
-{
-    Node* test1 = nullptr;  // Start with an empty list
-
-    test1 = insertEnd(test1, 2);
-    test1 = insertEnd(test1, 4);
-    test1 = insertEnd(test1, 4);
-    test1 = insertEnd(test1, 5);
-    test1 = insertEnd(test1, 6);
-    test1 = insertEnd(test1, 7);
-    test1 = insertEnd(test1, 8);
-    test1 = insertEnd(test1, 35);
-    //test1 = insertEnd(test1, 100);
-
-    Node* head = test1;   // head points to the start
-    Node* curr = head;    // curr is for traversal
-    Node* Q3slow = head;
-    Node* Q3fast = head;
-
-
-
-
-
-    int clock = 0;
-    // Example traversal (print values)
-    while (curr != nullptr) {
-        std::cout << curr->value << " ";
-        curr = curr->next;
-    }
-    std::cout << std::endl;
-    curr = head;
-
-    while (curr != nullptr) {
-
-        curr = curr->next;
+        //curr = curr->next;
         clock++;
 
 
         if (clock % 4 == 0){
-          Q3fast += 3;
+          curr = curr->next;
+          Q3slow = Q3slow->next;
+            Q1slow = Q1slow->next;
+
+
+
 
         }
-        /*if (clock % 4 == 1){
-          Q3slow = Q3slow->next->next;
-        }*/
-       
+        if (clock % 4 == 1){
+          curr = curr->next;
+          Q3fast = Q3fast->next;
+          Q3slow = Q3slow->next;
+
+
+        }
+
+        if (clock % 4 == 2){
+          curr = curr->next;
+          Q3fast = Q3fast->next;
+          Q3slow = Q3slow->next;
+
+
+        }
+        if (clock % 4 == 3){
+          curr = curr->next;
+          Q3fast = Q3fast->next;
+            Q1fast = Q1fast->next;
+
+
+        }
+
     }
-    //if (clock % 2 == 0) {Q3fast = Q3fast->next;    }
-    
-    
-    
-    std::cout << "Q3slow " << Q3slow->value << std::endl;
-    std::cout << "Q3fast " <<Q3fast->value << std::endl;
+
+    if (clock % 4 == 0){
+      Q3slow = Q3slow->next;
+    }
+    /*
+    Clock ticks for Q3 are good.
+
+    Clock tick 0 needs some work for Q1. Kind of like the fix for Q3 clock tick 0
+     */
+
+
+
+    //if (clock % 2 == 0) {Q3fast = Q3fast->next;}
+
+    std::cout << "Q1 slow " << Q1slow->value <<std::endl;
+    std::cout << "Q1fast " << Q1fast->value <<std::endl;
+    //std::cout << "Q3slow " << Q3slow->value << std::endl;
+   // std::cout << "Q3fast " <<Q3fast->value << std::endl;
+    std::cout << "Clock tick " << clock % 4 << std::endl;
+    //std::cout << "Q3 value " << float(Q3slow->value + Q3fast->ue) / 2 << std::endl;
+
+
+
 
 
 
@@ -226,3 +163,4 @@ int main()
 
     return 0;
 }
+
