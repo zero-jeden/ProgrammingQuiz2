@@ -35,7 +35,7 @@ float interQuartile(Node* head)
 }
 int main()
 {
-    Node* test1 = nullptr;  // Start with an empty list
+    Node* test1 = nullptr;
 
     test1 = insertEnd(test1, 2);
     test1 = insertEnd(test1, 4);
@@ -50,17 +50,22 @@ int main()
     test1 = insertEnd(test1, 62);
     test1 = insertEnd(test1, 72);
     test1 = insertEnd(test1, 83);
-    /*test1 = insertEnd(test1, 99);
+    test1 = insertEnd(test1, 99);
     test1 = insertEnd(test1, 102);
     test1 = insertEnd(test1, 134);
-    test1 = insertEnd(test1, 153);*/
+    test1 = insertEnd(test1, 153);
 
-    Node* head = test1;   // head points to the start
-    Node* curr = head;    // curr is for traversal
+    Node* head = test1;
+    Node* curr = head;
     Node* Q3slow = head;
     Node* Q3fast = head;
     Node* Q1slow = head;
     Node* Q1fast = head;
+
+    float Q1placeholder = 0.0;
+    float firstQuartile = 0.0;
+    float thirdQuartile = 0.0;
+
 
 
 
@@ -77,6 +82,7 @@ int main()
 
     while (curr != nullptr && curr->next != nullptr ) {
 
+        Q1placeholder = float(Q1slow->value + Q1fast->value)/2;
         //curr = curr->next;
         clock++;
 
@@ -115,9 +121,17 @@ int main()
 
     }
 
+    firstQuartile = float(Q1slow->value +Q1fast->value ) /2;
+
+
+
     if (clock % 4 == 0){
       Q3slow = Q3slow->next;
+      firstQuartile = Q1placeholder;
+
     }
+    thirdQuartile = float(Q3slow->value + Q3fast->value) / 2;
+
     /*
     Clock ticks for Q3 are good.
 
@@ -128,12 +142,16 @@ int main()
 
     //if (clock % 2 == 0) {Q3fast = Q3fast->next;}
 
-    std::cout << "Q1 slow " << Q1slow->value <<std::endl;
-    std::cout << "Q1fast " << Q1fast->value <<std::endl;
-    //std::cout << "Q3slow " << Q3slow->value << std::endl;
+    //std::cout << "Q1 slow " << Q1slow->value <<std::endl;
+    //std::cout << "Q1fast " << Q1fast->value <<std::endl;
+    //std::cout << "Q1 place holder " << Q1placeholder << std::endl;
    // std::cout << "Q3fast " <<Q3fast->value << std::endl;
+    std::cout << "First Quartile " << firstQuartile  << std::endl;
+    std::cout << "Third Quartile " << thirdQuartile << std::endl;
+
+    std::cout <<"Interquartile Range " << thirdQuartile - firstQuartile << std::endl;
+
     std::cout << "Clock tick " << clock % 4 << std::endl;
-    //std::cout << "Q3 value " << float(Q3slow->value + Q3fast->ue) / 2 << std::endl;
 
 
 
